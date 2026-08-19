@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Calculateur de température de l'eau</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:#f3f4f6;color:#111827;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.card{width:min(520px,100%);background:white;border-radius:24px;padding:28px;box-shadow:0 10px 35px #0001}
+h1{margin:0 0 8px;font-size:28px;text-align:center}
+.sub{text-align:center;color:#6b7280;margin-bottom:28px}
+label{display:block;font-weight:700;margin:18px 0 8px}
+input{width:100%;font-size:26px;padding:14px 16px;border:2px solid #d1d5db;border-radius:14px;text-align:center;outline:none}
+input:focus{border-color:#2563eb}
+.result{margin-top:28px;background:#eff6ff;border-radius:20px;padding:22px;text-align:center}
+.result span{display:block;color:#2563eb;font-weight:700;font-size:18px}
+#water{font-size:56px;font-weight:800;color:#1d4ed8;line-height:1.1;margin-top:6px}
+.formula{text-align:center;color:#6b7280;font-size:14px;margin-top:18px}
+button{width:100%;margin-top:20px;padding:13px;border:0;border-radius:12px;background:#e5e7eb;font-size:16px;font-weight:700;cursor:pointer}
+</style>
+</head>
+<body>
+<main class="card">
+<h1>🌡️ Température de l'eau</h1>
+<div class="sub">Calcul pour la pâte</div>
+
+<label for="flour">🌾 Température de la farine (°C)</label>
+<input id="flour" type="number" step="0.1" inputmode="decimal" placeholder="Ex. 22">
+
+<label for="room">🏠 Température de la pièce (°C)</label>
+<input id="room" type="number" step="0.1" inputmode="decimal" placeholder="Ex. 24">
+
+<div class="result">
+<span>💧 Température de l'eau</span>
+<div id="water">— °C</div>
+</div>
+
+<div class="formula">Eau = 58 − température farine − température pièce</div>
+<button onclick="resetCalc()">Réinitialiser</button>
+</main>
+
+<script>
+const flour=document.getElementById('flour');
+const room=document.getElementById('room');
+const water=document.getElementById('water');
+
+function calculate(){
+  const f=parseFloat(flour.value);
+  const r=parseFloat(room.value);
+  if(Number.isFinite(f)&&Number.isFinite(r)){
+    water.textContent=(58-f-r).toFixed(1).replace('.0','')+' °C';
+  }else water.textContent='— °C';
+}
+flour.addEventListener('input',calculate);
+room.addEventListener('input',calculate);
+
+function resetCalc(){
+  flour.value='';
+  room.value='';
+  water.textContent='— °C';
+  flour.focus();
+}
+</script>
+</body>
+</html>
